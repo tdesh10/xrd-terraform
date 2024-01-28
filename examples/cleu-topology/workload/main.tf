@@ -89,29 +89,3 @@ resource "helm_release" "xrd3" {
     )
   ]
 }
-
-# module "cnf" {
-#   source = "../../../modules/aws/linux-pod-with-net-attach"
-
-#   name       = "cnf"
-#   device     = "eth1"
-#   ip_address = "10.0.10.10/24"
-#   gateway    = "10.0.10.11"
-#   routes     = ["10.0.13.0/24"]
-#   node_selector = {
-#     name = "gamma"
-#   }
-# }
-
-# module "peer" {
-#   source = "../../../modules/aws/linux-pod-with-net-attach"
-
-#   name       = "peer"
-#   device     = "eth2"
-#   ip_address = "10.0.13.10/24"
-#   gateway    = "10.0.13.12"
-#   routes     = ["10.0.10.0/24"]
-#   node_selector = {
-#     name = "gamma"
-#   }
-# }
