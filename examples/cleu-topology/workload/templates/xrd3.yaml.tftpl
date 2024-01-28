@@ -1,0 +1,51 @@
+image:
+  repository: "${image_repository}"
+  tag: "${image_tag}"
+resources:
+  limits:
+    memory: 8Gi
+    hugepages-1Gi: 3Gi
+persistence:
+  enabled: true
+  storageClass: gp2
+nodeSelector:
+  name: gamma
+config:
+  username: ${xr_root_user}
+  password: ${xr_root_password}
+  ascii: |
+    hostname xrd3
+    logging console debugging
+    logging monitor debugging
+    line default
+     exec-timeout 0 0
+     width 0
+     length 0
+    !
+    bfd
+     multipath include location 0/RP0/CPU0
+     echo disable
+    !
+    call-home
+     service active
+     contact smart-licensing
+     profile CiscoTAC-1
+      active
+      destination transport-method email disable
+      destination transport-method http
+     !
+    !
+    interface HundredGigE0/0/0/0
+     ipv4 address 10.0.11.13 255.255.255.0
+    !
+    interface HundredGigE0/0/0/1
+     ipv4 address 10.0.12.13 255.255.255.0
+    !
+  asciiEveryBoot: True
+interfaces:
+- type: pci
+  config:
+    last: 2
+pciDriver: "igb_uio"
+cpu:
+  cpuset: ${cpuset}
