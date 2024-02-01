@@ -14,7 +14,7 @@ config:
   username: ${xr_root_user}
   password: ${xr_root_password}
   ascii: |
-    hostname xrd1
+    hostname XRd
     logging console debugging
     logging monitor debugging
     line default
@@ -32,7 +32,7 @@ config:
      !
     !
     interface Loopback0
-     ipv4 address 1.0.0.11 255.255.255.255
+     ipv4 address 1.0.0.1 255.255.255.255
     !
     interface HundredGigE0/0/0/0
      ipv4 address 10.0.10.11 255.255.255.0
