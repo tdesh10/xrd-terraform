@@ -248,14 +248,14 @@ data "aws_region" "current" {}
 data "aws_eip" "alpha_eip" {
   filter {
     name   = "tag:Name"
-    values = ["${local.name_prefix}-${data.aws_region.current.name}-a"]
+    values = ["${local.name_prefix}-${data.aws_region.current.name}a"]
   }
 }
 
 data "aws_eip" "beta_eip" {
   filter {
     name   = "tag:Name"
-    values = ["${local.name_prefix}-${data.aws_region.current.name}-b"]
+    values = ["${local.name_prefix}-${data.aws_region.current.name}b"]
   }
 }
 
