@@ -243,14 +243,28 @@ module "node" {
   }
 }
 
-resource "aws_eip" "public_gre_int_alpha" {
-  domain = "vpc"
-  network_interface = module.node["alpha"].network_interface[0].id
-  associate_with_private_ip = "10.0.10.11"
+data "aws_eip" "alpha_eip" {
+  filter {
+    name   = "Name"
+    values = ["${local.name_prefix}-${local.bootstrap.region}-1a"]
+  }
 }
 
-resource "aws_eip" "public_gre_int_beta" {
-  domain = "vpc"
-  network_interface = module.node["beta"].network_interface[0].id
-  associate_with_private_ip = "10.0.10.12"
+data "aws_eip" "beta_eip" {
+  filter {
+    name   = "Name"
+    values = ["${local.name_prefix}-${local.bootstrap.region}-1b"]
+  }
+}
+
+resource "aws_eip_association" "alpha_eip_assoc" {
+  allocation_id        = data.aws_eip.alpha_eip.id
+  network_interface_id = module.node["alpha"].network_interface[0].id
+  private_ip_address   = "10.0.10.11"
+}
+
+resource "aws_eip_association" "beta_eip_assoc" {
+  allocation_id = data.aws_eip.alpha_eip.id
+  network_interface_id = module.node["beta"].network_interface[0].id
+  private_ip_address = "10.0.10.12"
 }
