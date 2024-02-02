@@ -243,17 +243,19 @@ module "node" {
   }
 }
 
+data "aws_region" "current" {}
+
 data "aws_eip" "alpha_eip" {
   filter {
     name   = "Name"
-    values = ["${local.name_prefix}-${local.bootstrap.region}-1a"]
+    values = ["${local.name_prefix}-${data.aws_region.current.name}-1a"]
   }
 }
 
 data "aws_eip" "beta_eip" {
   filter {
     name   = "Name"
-    values = ["${local.name_prefix}-${local.bootstrap.region}-1b"]
+    values = ["${local.name_prefix}-${data.aws_region.current.name}-1b"]
   }
 }
 
