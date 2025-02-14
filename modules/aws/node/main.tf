@@ -255,7 +255,7 @@ resource "kubernetes_job" "wait" {
   }
 
   timeouts {
-    create = "5m"
+    create = "15m"
   }
 
   wait_for_completion = true
