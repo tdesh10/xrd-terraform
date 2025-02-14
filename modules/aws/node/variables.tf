@@ -138,7 +138,7 @@ variable "user_data" {
 variable "wait" {
   description = "Wait for the instance to reach Ready status"
   type        = bool
-  default     = true
+  default     = false
   nullable    = false
 }
 
